@@ -67,9 +67,9 @@ var auditTasks = function() {
 };
 
 var replaceTextarea = function(textareaElement) {
-    /* replaces the provided textarea element with a p element and persists the data in localStorage */
+    /* keeps text in local storage and keeps it in p */
 
-    // get the necessary elements
+    // elements
     var taskInfo = textareaElement.closest(".task-info");
     var textArea = taskInfo.find("textarea");
 
@@ -78,10 +78,10 @@ var replaceTextarea = function(textareaElement) {
     var text = textArea.val().trim();
 
     // persist the data
-    tasks[time] = [text];  // setting to a one item list since there's only one task for now
+    tasks[time] = [text];  
     setTasks();
 
-    // replace the textarea element with a p element
+    // replaces text area with p element
     createTask(text, taskInfo);
 }
 
