@@ -2,15 +2,42 @@
 var today = moment();
 $("#currentDay").text(today.format("dddd, MMMM Do"));
 
-// setting time for day
+// tasks object to store in localStorage.
 var tasks = {
-    date: today
+    "9": [],
+    "10": [],
+    "11": [],
+    "12": [],
+    "13": [],
+    "14": [],
+    "15": [],
+    "16": [],
+    "17": []
 };
 
 // local storage
 var setTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+// load the tasks from localStorage and create tasks in the right row
+var getTasks = function() {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+    $.each(tasks, function(key, value) {
+        var hourDiv = $("#" + key);
+        createTask(value, hourDiv);
+    })
+}
+
+var createTask = function(taskText, hourDiv) {
+    var taskDiv = hourDiv.find(".task");
+    // create the task element
+    var taskP = $("<p>")
+        .addClass("task-text")
+        .text(taskText)
+    taskDiv.html(taskP);
+}
+
 
 // click handler
 $(".task").on("click", function() {
