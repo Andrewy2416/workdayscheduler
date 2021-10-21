@@ -46,6 +46,44 @@ var createTask = function(taskText, hourDiv) {
     taskDiv.html(taskP);
 }
 
+var auditTasks = function() {
+    // changes color based on time of day and current time 
+
+    var currentHour = moment().hour();
+    $(".task-info").each( function() {
+        var elementHour = parseInt($(this).attr("id"));
+
+        // timing mechanisms for color change
+        if ( elementHour < currentHour ) {
+            $(this).removeClass(["present", "future"]).addClass("past");
+        }
+        else if ( elementHour === currentHour ) {
+            $(this).removeClass(["past", "future"]).addClass("present");
+        }
+        else {
+            $(this).removeClass(["past", "present"]).addClass("future");
+        }
+    })
+};
+
+var replaceTextarea = function(textareaElement) {
+    /* replaces the provided textarea element with a p element and persists the data in localStorage */
+
+    // get the necessary elements
+    var taskInfo = textareaElement.closest(".task-info");
+    var textArea = taskInfo.find("textarea");
+
+    // get the time and task
+    var time = taskInfo.attr("id");
+    var text = textArea.val().trim();
+
+    // persist the data
+    tasks[time] = [text];  // setting to a one item list since there's only one task for now
+    setTasks();
+
+    // replace the textarea element with a p element
+    createTask(text, taskInfo);
+}
 
 // click handler
 $(".task").click(function() {
