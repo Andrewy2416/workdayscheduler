@@ -22,11 +22,19 @@ var setTasks = function() {
 
 // load the tasks from localStorage and create tasks in the right row
 var getTasks = function() {
-    tasks = JSON.parse(localStorage.getItem("tasks"));
-    $.each(tasks, function(key, value) {
-        var hourDiv = $("#" + key);
-        createTask(value, hourDiv);
-    })
+    var loadedTasks = JSON.parse(localStorage.getItem("tasks"));
+    if (loadedTasks) {
+        tasks = loadedTasks
+
+        // for each key/value pair in tasks, create a task
+        $.each(tasks, function(hour, task) {
+            var hourDiv = $("#" + hour);
+            createTask(task, hourDiv);
+        })
+    }
+
+    // make sure the past/current/future time is reflected
+    auditTasks()
 }
 
 var createTask = function(taskText, hourDiv) {
@@ -40,7 +48,19 @@ var createTask = function(taskText, hourDiv) {
 
 
 // click handler
-$(".task").on("click", function() {
+$(".task").click(function() {
+
+    // save the other tasks if they've already been clicked
+    $("textarea").each(function() {
+        replaceTextarea($(this));
+    })
+
+    // convert to a textarea element if the time hasn't passed
+    var time = $(this).closest(".task-info").attr("id");
+    if (parseInt(time) >= moment().hour())
+
+
+    // create a textInput element
     var text = $(this).text();
     // create a textInput element
     var textInput = $("<textarea>")
