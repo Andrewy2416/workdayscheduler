@@ -122,3 +122,17 @@ $(".save").on("click", function() {
         .text(text)
     textArea.replaceWith(taskP);
 })
+
+// save button click handler
+$(".saveBtn").click(function() {
+    replaceTextarea($(this));
+})
+
+// update task backgrounds on the hour
+timeToHour = 3600000 - today.milliseconds();  // check how much time is left until the next hour
+setTimeout(function() {
+    setInterval(auditTasks, 3600000)
+}, timeToHour);
+
+// get the tasks from localStorage on load.
+getTasks();
