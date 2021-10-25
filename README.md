@@ -1,6 +1,6 @@
 # workdayscheduler
 
-<p> This deployable application features dynamically updating HTML and CSS that runs in the browser and powere by Javscript using jQuery. </p>
+<p> This deployable application features dynamically updating HTML and CSS that runs in the browser and powered by Javscript using jQuery. </p>
 
 ## Screenshot
 
